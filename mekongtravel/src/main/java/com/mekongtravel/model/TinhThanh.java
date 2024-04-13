@@ -1,4 +1,5 @@
 package com.mekongtravel.model;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,13 +15,13 @@ public class TinhThanh {
     @Id
     private String id;
 
-    @Field("tenTinhThanh")
+    @NotBlank
     private String tenTinhThanh;
-    @Field("maTinh")
+    @NotBlank
     private String maTinh;
-    @Field("amThuc")
+    @NotBlank
     private List<MonAn> amThuc;
-    @Field("diaDiem")
+    @NotBlank
     private List<DiaDiem> diaDiem;
 
 }

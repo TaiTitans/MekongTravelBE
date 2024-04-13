@@ -1,5 +1,6 @@
 package com.mekongtravel.controller;
 import com.mekongtravel.model.TinhThanh;
+import com.mekongtravel.util.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 import com.mekongtravel.service.TinhThanhService;
 import org.springframework.http.HttpStatus;
@@ -13,9 +14,14 @@ public class TinhThanhController {
         this.tinhThanhService = tinhThanhService;
     }
     @GetMapping("/{maTinh}")
-    public ResponseEntity<TinhThanh> getByMaTinh(@PathVariable String maTinh){
-        TinhThanh tinhThanh = tinhThanhService.getByMaTinh(maTinh);
-        return ResponseEntity.ok(tinhThanh);
+    public ResponseEntity<?> getByMaTinh(@PathVariable String maTinh) {
+        try {
+            TinhThanh tinhThanh = tinhThanhService.getByMaTinh(maTinh);
+            return ResponseEntity.ok(tinhThanh);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ErrorResponse(e.getMessage()));
+        }
     }
     @PostMapping
     public ResponseEntity<TinhThanh> createTinhThanh(@RequestBody TinhThanh tinhThanh){
